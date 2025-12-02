@@ -72,6 +72,6 @@ private fun recursiveSearch(
 }
 
 private fun getInput(): List<List<Char>> {
-    val input = FileReader.readFileFromResources("day_4_input.txt")
+    val input = FileReader.readFileFromResources("twentyfour/day_4_input.txt")
     return input.split("\n").map { line -> line.trim().toList() }
 }

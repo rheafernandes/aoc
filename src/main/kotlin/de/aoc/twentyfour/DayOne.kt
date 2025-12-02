@@ -17,7 +17,7 @@ fun solveDayOnePartTwo(): Int  {
 }
 
 private fun getInput(): Pair<MutableList<Int>, MutableList<Int>> {
-    val input = FileReader.readFileFromResources("day_1_input.txt")
+    val input = FileReader.readFileFromResources("twentyfour/day_1_input.txt")
 
     val pointAList = mutableListOf<Int>()
     val pointBList = mutableListOf<Int>()

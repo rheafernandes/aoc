@@ -1,6 +1,7 @@
 package org.example
 
-import org.example.de.aoc.twentyfour.*
+//import org.example.de.aoc.twentyfour.*
+import org.example.de.aoc.twentyfive.*
 
 
 fun main() {
@@ -10,7 +11,9 @@ fun main() {
 //    println(solveDayTwoPartTwo()) //404
 //    println(solveDayThreePartOne()) //164730528
 //    println(solveDayThreePartTwo()) //164730528
-    println(solveDayFourPartOne())
-    println(solveDayFourPartTwo())
+//    println(solveDayFourPartOne())
+//    println(solveDayFourPartTwo())
+//    println(solveDayOnePartOne())
+    println(solveDayOnePartTwo()) //4769
 
 }

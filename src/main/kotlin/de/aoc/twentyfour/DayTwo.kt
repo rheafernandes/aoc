@@ -23,7 +23,7 @@ fun solveDayTwoPartTwo(): Int {
 
 
 private fun getInput(): List<List<Int>> {
-    val input = FileReader.readFileFromResources("day_2_input.txt")
+    val input = FileReader.readFileFromResources("twentyfour/day_2_input.txt")
 
     return input.split("\n").map { line ->
         line.split("\\s".toRegex()).map { it.trim().toInt() }

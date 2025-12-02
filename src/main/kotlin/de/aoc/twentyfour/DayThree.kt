@@ -3,12 +3,12 @@ package org.example.de.aoc.twentyfour
 import org.example.de.common.FileReader
 
 fun solveDayThreePartOne():Int {
-    val multiplyCommands =  getInput(FileReader.readFileFromResources("day_3_input.txt"))
+    val multiplyCommands =  getInput(FileReader.readFileFromResources("twentyfour/day_3_input.txt"))
     return multiplyCommands.sumOf { command -> solveMultiplication(command) }
 }
 
 fun solveDayThreePartTwo(): Int {
-    val fileString = FileReader.readFileFromResources("day_3_input.txt")
+    val fileString = FileReader.readFileFromResources("twentyfour/day_3_input.txt")
     val multiplyCommands =  getInput(fileString).toMutableList()
     val dontDoSectionRegex = Regex("don't\\(\\)((?s).*?)(do\\(\\)|$)") //Got some help here from AI, I knew what to ask for.
     val dontDoCommands = dontDoSectionRegex.findAll(fileString).flatMap { matchResult ->
