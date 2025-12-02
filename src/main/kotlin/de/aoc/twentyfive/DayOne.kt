@@ -42,15 +42,15 @@ fun solveDayOnePartTwo(): Int {
         val rotations = abs(dialPosition / 100)
         if (rotations > 0)
             code += rotations
-        else if (dialPosition == 0) {
+        else if (rotations == 0 && dialPosition == 0) {
             code++
             wasDialPosition0 = true
         }
 
         dialPosition %= 100
 
-        if (dialPosition < 0) {
-            if(!wasDialPosition0) {
+        if (dialPosition < 0)  {
+            if (!wasDialPosition0) {
                 code++
                 wasDialPosition0 = false
             }
@@ -60,7 +60,7 @@ fun solveDayOnePartTwo(): Int {
     return code
 }
 
-fun getInput(): List<Pair<Char, Int>> {
+private fun getInput(): List<Pair<Char, Int>> {
     val input = FileReader.readFileFromResources("twentyfive/day_1_input.txt")
     val lines = input.split("\n")
     return lines.map {
