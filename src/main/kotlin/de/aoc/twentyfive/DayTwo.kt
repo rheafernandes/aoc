@@ -5,7 +5,14 @@ import org.example.de.common.FileReader
 fun solveDayTwoPartOne(): Long {
     val productIdRanges = getInput()
     return productIdRanges.sumOf { idRange ->
-        idRange.filter { !getValidProductId(it)}.sum()
+        idRange.filter { !getValidProductId(it.toString(), 0, listOf(2)) }.sum()
+    }
+}
+
+fun solveDayTwoPartTwo(): Long {
+    val productIdRanges = getInput()
+    return productIdRanges.sumOf { idRange ->
+        idRange.filter { !getValidProductId(it.toString(), 0, listOf(2, 3, 5, 7)) }.sum()
     }
 }
 
@@ -18,20 +25,31 @@ private fun getInput(): List<LongRange> {
     }.toList()
 }
 
-private fun getValidProductId(productId: Long): Boolean {
-    val productIdString = productId.toString()
+//private fun getValidProductId(productId: Long): Boolean {
+//    val productIdString = productId.toString()
+//    val productIdLen = productIdString.length
+//    if (productIdLen % 2 != 0)
+//        return true
+//    else {
+//        val middle = productIdLen / 2
+//        return productIdString.chunked(middle).distinct().size != 1
+//    }
+//}
+
+private fun getValidProductId(productIdString: String, divisorIndex: Int, divisors: List<Int>): Boolean {
     val productIdLen = productIdString.length
-    if(productIdLen % 2 != 0)
+
+    if (divisorIndex >= divisors.size)
         return true
+
+    return if (productIdLen % divisors[divisorIndex] != 0)
+        getValidProductId(productIdString, divisorIndex + 1, divisors)
     else {
-        var isValid = false
-        val middle = productIdLen / 2
-        for(i in 0 ..< middle) {
-            if(productIdString[i] != productIdString[i + middle]) {
-                isValid = true
-                break
-            }
+        val sectionLen = productIdLen / divisors[divisorIndex]
+        if(productIdString.chunked(sectionLen).distinct().size != 1) {
+            getValidProductId(productIdString, divisorIndex + 1, divisors)
+        } else {
+            false
         }
-        return isValid
     }
 }
