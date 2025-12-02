@@ -25,17 +25,6 @@ private fun getInput(): List<LongRange> {
     }.toList()
 }
 
-//private fun getValidProductId(productId: Long): Boolean {
-//    val productIdString = productId.toString()
-//    val productIdLen = productIdString.length
-//    if (productIdLen % 2 != 0)
-//        return true
-//    else {
-//        val middle = productIdLen / 2
-//        return productIdString.chunked(middle).distinct().size != 1
-//    }
-//}
-
 private fun getValidProductId(productIdString: String, divisorIndex: Int, divisors: List<Int>): Boolean {
     val productIdLen = productIdString.length
 
