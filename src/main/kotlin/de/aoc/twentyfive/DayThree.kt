@@ -16,7 +16,7 @@ fun solveDayThreePartTwo(): Int {
     return 0
 }
 
-
+//I need to change this, need to get the max, then move the indices to start from right if max has digits on right or else left. (Binary search?)
 private fun getNMaxIndices(bank: MutableList<Int>, n: Int): List<Int> {
     val indicesOfBatteries = bank.withIndex()
         .sortedByDescending { it.value }
