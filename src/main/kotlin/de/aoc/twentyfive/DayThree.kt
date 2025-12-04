@@ -6,8 +6,8 @@ fun solveDayThreePartOne(): Long {
     val joltageBanks = getInput()
 
     return joltageBanks.sumOf { bank ->
-        val requiredJoltageIndices = getNMaxIndices(bank.toMutableList(), 2)
-        val joltage = requiredJoltageIndices.map { bank[it].toString() }.joinToString(separator = "").toLong()
+        val requiredJoltageIndices = getNBatteries(bank, 2)
+        val joltage = requiredJoltageIndices.joinToString(separator = "") { bank[it].toString() }.toLong()
         joltage
     }
 }
@@ -16,35 +16,24 @@ fun solveDayThreePartTwo(): Long {
     val joltageBanks = getInput()
 
     return joltageBanks.sumOf { bank ->
-        val requiredJoltageIndices = getNMaxIndices(bank.toMutableList(), 12)
-        val joltage = requiredJoltageIndices.map { bank[it].toString() }.joinToString(separator = "").toLong()
+        val requiredJoltageIndices = getNBatteries(bank, 12)
+        val joltage = requiredJoltageIndices.joinToString(separator = "") { bank[it].toString() }.toLong()
         joltage
     }
 }
 
-private fun getNMaxIndices(bank: MutableList<Long>, n: Int): List<Int> {
-    val indicesOfBatteries = mutableListOf<Int>()
-    var tempIndex = -1
-    for (i in 0..<n) {
-        var max: Long = Long.MIN_VALUE
-        val searchRange =
-            if (tempIndex < bank.size - 1)
-                (tempIndex + 1)..(bank.size - 1)
-            else if (tempIndex > 0)
-                0 until tempIndex
-            else 0 until bank.size
+private fun getNBatteries(joltageBank: List<Long>, batteryCount: Int): List<Int> {
+    var startIndex = 0
+    var endIndex = joltageBank.size - (batteryCount - 1)
+    val joltageIndices = mutableListOf<Int>()
 
-        for (j in searchRange) {
-            if (bank[j] > max) {
-                max = bank[j]
-                tempIndex = j
-            }
-        }
-
-        indicesOfBatteries.add(tempIndex)
+    repeat(batteryCount) { i ->
+        val indexFound = joltageBank.subList(startIndex, endIndex).withIndex().maxBy { it.value }.index
+        joltageIndices.add(indexFound + startIndex)
+        startIndex = indexFound + startIndex + 1
+        endIndex = joltageBank.size - (batteryCount - 1 - (i + 1))
     }
-    indicesOfBatteries.sort()
-    return indicesOfBatteries
+    return joltageIndices.sorted()
 }
 
 private fun getInput(): List<List<Long>> {

@@ -2,6 +2,7 @@ package org.example
 
 //import org.example.de.aoc.twentyfour.*
 import org.example.de.aoc.twentyfive.*
+import org.example.de.common.benchmarkSolveDayFourPartTwo
 
 
 fun main() {
@@ -18,6 +19,8 @@ fun main() {
 //    println(solveDayTwoPartOne())
 //    println(solveDayTwoPartTwo())
 //    println(solveDayThreePartOne())
-    println(solveDayFourPartOne())
-    println(solveDayFourPartTwo())
+    println(solveDayThreePartTwo())
+//    println(solveDayFourPartOne())
+//    println(solveDayFourPartTwo())
+//    benchmarkSolveDayFourPartTwo(runs = 20, warmups = 5, ::solveDayFourPartTwo)
 }
