@@ -2,45 +2,55 @@ package org.example.de.aoc.twentyfive
 
 import org.example.de.common.FileReader
 
-fun solveDayThreePartOne(): Int {
+fun solveDayThreePartOne(): Long {
     val joltageBanks = getInput()
 
     return joltageBanks.sumOf { bank ->
         val requiredJoltageIndices = getNMaxIndices(bank.toMutableList(), 2)
-        val joltage = requiredJoltageIndices.map { bank[it].toString() }.joinToString(separator = "").toInt()
+        val joltage = requiredJoltageIndices.map { bank[it].toString() }.joinToString(separator = "").toLong()
         joltage
     }
 }
 
-fun solveDayThreePartTwo(): Int {
-    return 0
+fun solveDayThreePartTwo(): Long {
+    val joltageBanks = getInput()
+
+    return joltageBanks.sumOf { bank ->
+        val requiredJoltageIndices = getNMaxIndices(bank.toMutableList(), 12)
+        val joltage = requiredJoltageIndices.map { bank[it].toString() }.joinToString(separator = "").toLong()
+        joltage
+    }
 }
 
-//I need to change this, need to get the max, then move the indices to start from right if max has digits on right or else left. (Binary search?)
-private fun getNMaxIndices(bank: MutableList<Int>, n: Int): List<Int> {
-    val indicesOfBatteries = bank.withIndex()
-        .sortedByDescending { it.value }
-        .take(n)
-        .map { it.index }.toMutableList()
-//    for (i in 0..<n) {
-//        var max = Integer.MIN_VALUE
-//        var tempIndex = -1
-//        for (j in 0..<bank.size) {
-//            if (bank[j] > max) {
-//                max = bank[j]
-//                tempIndex = j
-//            }
-//        }
-//        indicesOfBatteries.add(tempIndex)
-//    }
+private fun getNMaxIndices(bank: MutableList<Long>, n: Int): List<Int> {
+    val indicesOfBatteries = mutableListOf<Int>()
+    var tempIndex = -1
+    for (i in 0..<n) {
+        var max: Long = Long.MIN_VALUE
+        val searchRange =
+            if (tempIndex < bank.size - 1)
+                (tempIndex + 1)..(bank.size - 1)
+            else if (tempIndex > 0)
+                0 until tempIndex
+            else 0 until bank.size
+
+        for (j in searchRange) {
+            if (bank[j] > max) {
+                max = bank[j]
+                tempIndex = j
+            }
+        }
+
+        indicesOfBatteries.add(tempIndex)
+    }
     indicesOfBatteries.sort()
     return indicesOfBatteries
 }
 
-private fun getInput(): List<List<Int>> {
+private fun getInput(): List<List<Long>> {
     val input = FileReader.readFileFromResources("twentyfive/day_3_input.txt")
     val banks = input.split("\n")
     return banks.map { joltages ->
-        joltages.map { it.digitToInt() }
+        joltages.map { it.digitToInt().toLong() }
     }.toList()
 }
