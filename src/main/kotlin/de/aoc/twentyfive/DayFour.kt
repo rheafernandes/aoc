@@ -15,23 +15,38 @@ enum class Direction(val delta: Pair<Int, Int>) {
 
 fun solveDayFourPartOne(): Int {
     val toiletRollGrid = getInput()
-    val rollsAccessed = toiletRollGrid.mapIndexed { rowIndex, row ->
-        row.filterIndexed { columnIndex, char ->
-            char == "@" && canAccessRoll(toiletRollGrid, rowIndex, columnIndex)
-        }.count()
-    }.sum()
-    return rollsAccessed
+    return getRollsAccessed(toiletRollGrid, false)
 }
 
 fun solveDayFourPartTwo(): Int {
-    return 0
+    var totalRollsAccessed = 0
+    val toiletRollGrid = getInput()
+    var rollsAccessed = getRollsAccessed(toiletRollGrid, true)
+    while (rollsAccessed != 0) {
+        totalRollsAccessed += rollsAccessed
+        rollsAccessed = getRollsAccessed(toiletRollGrid, true)
+    }
+    return totalRollsAccessed
 }
 
-private fun getInput(): List<List<String>> {
+private fun getInput(): MutableList<MutableList<String>> {
     val input = FileReader.readFileFromResources("twentyfive/day_4_input.txt")
     return input.split("\n").map {
-        it.split("")
-    }.toList()
+        it.split("").toMutableList()
+    }.toMutableList()
+}
+
+private fun getRollsAccessed(toiletRollGrid: MutableList<MutableList<String>>, markAsRemoved: Boolean): Int {
+    val rollsAccessed = toiletRollGrid.mapIndexed { rowIndex, row ->
+        row.filterIndexed { columnIndex, char ->
+            if (char == "@" && canAccessRoll(toiletRollGrid, rowIndex, columnIndex)) {
+                if (markAsRemoved) toiletRollGrid[rowIndex][columnIndex] = "."
+                true
+            } else
+                false
+        }.count()
+    }.sum()
+    return rollsAccessed
 }
 
 private fun canAccessRoll(toiletRollGrid: List<List<String>>, rowIndex: Int, columnIndex: Int): Boolean {

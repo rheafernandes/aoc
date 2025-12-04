@@ -19,4 +19,5 @@ fun main() {
 //    println(solveDayTwoPartTwo())
 //    println(solveDayThreePartOne())
     println(solveDayFourPartOne())
+    println(solveDayFourPartTwo())
 }
