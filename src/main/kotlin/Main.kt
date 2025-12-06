@@ -19,8 +19,10 @@ fun main() {
 //    println(solveDayTwoPartOne())
 //    println(solveDayTwoPartTwo())
 //    println(solveDayThreePartOne())
-    println(solveDayThreePartTwo())
+//    println(solveDayThreePartTwo())
 //    println(solveDayFourPartOne())
 //    println(solveDayFourPartTwo())
 //    benchmarkSolveDayFourPartTwo(runs = 20, warmups = 5, ::solveDayFourPartTwo)
+//    println(solveDayFivePartOne())
+    println(solveDayFivePartTwo())
 }
